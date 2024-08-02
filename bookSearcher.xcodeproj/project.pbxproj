@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F13D8612C5CA43A005D7272 /* bookSercher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookSercher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F13D8612C5CA43A005D7272 /* bookSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F13D8642C5CA43A005D7272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F13D8682C5CA43A005D7272 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4F13D86D2C5CA43B005D7272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		4F13D8622C5CA43A005D7272 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F13D8612C5CA43A005D7272 /* bookSercher.app */,
+				4F13D8612C5CA43A005D7272 /* bookSearcher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,9 +106,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4F13D8602C5CA43A005D7272 /* bookSercher */ = {
+		4F13D8602C5CA43A005D7272 /* bookSearcher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F13D8752C5CA43B005D7272 /* Build configuration list for PBXNativeTarget "bookSercher" */;
+			buildConfigurationList = 4F13D8752C5CA43B005D7272 /* Build configuration list for PBXNativeTarget "bookSearcher" */;
 			buildPhases = (
 				4F13D85D2C5CA43A005D7272 /* Sources */,
 				4F13D85E2C5CA43A005D7272 /* Frameworks */,
@@ -118,13 +118,13 @@
 			);
 			dependencies = (
 			);
-			name = bookSercher;
+			name = bookSearcher;
 			packageProductDependencies = (
 				4F13D87F2C5CABBB005D7272 /* RxCocoa */,
 				4F13D8822C5CABCC005D7272 /* SnapKit */,
 			);
 			productName = bookSercher;
-			productReference = 4F13D8612C5CA43A005D7272 /* bookSercher.app */;
+			productReference = 4F13D8612C5CA43A005D7272 /* bookSearcher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,7 +142,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4F13D85C2C5CA43A005D7272 /* Build configuration list for PBXProject "bookSercher" */;
+			buildConfigurationList = 4F13D85C2C5CA43A005D7272 /* Build configuration list for PBXProject "bookSearcher" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -159,7 +159,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4F13D8602C5CA43A005D7272 /* bookSercher */,
+				4F13D8602C5CA43A005D7272 /* bookSearcher */,
 			);
 		};
 /* End PBXProject section */
@@ -340,7 +340,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.firstProject.bookSercher;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstProject.bookSearcher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -367,7 +367,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.firstProject.bookSercher;
+				PRODUCT_BUNDLE_IDENTIFIER = com.firstProject.bookSearcher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -378,7 +378,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4F13D85C2C5CA43A005D7272 /* Build configuration list for PBXProject "bookSercher" */ = {
+		4F13D85C2C5CA43A005D7272 /* Build configuration list for PBXProject "bookSearcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F13D8732C5CA43B005D7272 /* Debug */,
@@ -387,7 +387,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4F13D8752C5CA43B005D7272 /* Build configuration list for PBXNativeTarget "bookSercher" */ = {
+		4F13D8752C5CA43B005D7272 /* Build configuration list for PBXNativeTarget "bookSearcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F13D8762C5CA43B005D7272 /* Debug */,
