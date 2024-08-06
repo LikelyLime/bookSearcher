@@ -7,15 +7,26 @@
 
 import Foundation
 
-struct BookModel: Codable{
-    let meta: Meta
+struct BookModel: Codable {
+    let authors: [String]
+    let contents: String
+    let price: Int
+    let title: String
+    let thumbnail: String
 }
-struct Meta: Codable{
-    let totalCount: Int
-    let pageableCount: Int
+
+struct BookSearchResponse: Codable {
+    let meta: Meta
+    let documents: [BookModel]
+}
+
+struct Meta: Codable {
     let isEnd: Bool
-    enum CodingKeys: String, CodingKey{
-        case isEnd
+    let pageableCount: Int
+    let totalCount: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case isEnd = "is_end"
         case pageableCount = "pageable_count"
         case totalCount = "total_count"
     }

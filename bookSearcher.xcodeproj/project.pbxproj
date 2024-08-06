@@ -24,6 +24,8 @@
 		4F7476E22C60BEB700EA0BF4 /* ShoppingBasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476E12C60BEB600EA0BF4 /* ShoppingBasketView.swift */; };
 		4F7476E52C60C40500EA0BF4 /* ShoppingBasketTabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476E42C60C40500EA0BF4 /* ShoppingBasketTabelCell.swift */; };
 		4F7476E82C60D60C00EA0BF4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476E72C60D60C00EA0BF4 /* DetailView.swift */; };
+		4F7476EA2C61AB3000EA0BF4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476E92C61AB3000EA0BF4 /* NetworkManager.swift */; };
+		4F7476EC2C61AEB500EA0BF4 /* SearcherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476EB2C61AEB500EA0BF4 /* SearcherViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		4F7476E12C60BEB600EA0BF4 /* ShoppingBasketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBasketView.swift; sourceTree = "<group>"; };
 		4F7476E42C60C40500EA0BF4 /* ShoppingBasketTabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBasketTabelCell.swift; sourceTree = "<group>"; };
 		4F7476E72C60D60C00EA0BF4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		4F7476E92C61AB3000EA0BF4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4F7476EB2C61AEB500EA0BF4 /* SearcherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearcherViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 		4F13D8792C5CA53D005D7272 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4F7476EB2C61AEB500EA0BF4 /* SearcherViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 		4F13D87B2C5CA558005D7272 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4F7476E92C61AB3000EA0BF4 /* NetworkManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -243,6 +249,7 @@
 				4F13D8692C5CA43A005D7272 /* SearchViewController.swift in Sources */,
 				4F7476DD2C60721B00EA0BF4 /* RecentBookCell.swift in Sources */,
 				4F13D8852C5CAE52005D7272 /* SearchView.swift in Sources */,
+				4F7476EC2C61AEB500EA0BF4 /* SearcherViewModel.swift in Sources */,
 				4F13D8872C5CB1AF005D7272 /* ShoppingBasketViewController.swift in Sources */,
 				4F7476DF2C608FA000EA0BF4 /* SearchResultCell.swift in Sources */,
 				4F13D8892C5CBF10005D7272 /* DetailViewController.swift in Sources */,
@@ -250,6 +257,7 @@
 				4F7476E82C60D60C00EA0BF4 /* DetailView.swift in Sources */,
 				4F7476D92C60646F00EA0BF4 /* SectionHeaderView.swift in Sources */,
 				4F13D8652C5CA43A005D7272 /* AppDelegate.swift in Sources */,
+				4F7476EA2C61AB3000EA0BF4 /* NetworkManager.swift in Sources */,
 				4F7476DB2C606CD500EA0BF4 /* BookModel.swift in Sources */,
 				4F7476E22C60BEB700EA0BF4 /* ShoppingBasketView.swift in Sources */,
 				4F13D87D2C5CAAB6005D7272 /* RootViewController.swift in Sources */,
