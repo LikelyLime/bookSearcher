@@ -8,10 +8,20 @@
 import UIKit
 class SearchResultCell: UICollectionViewCell{
     static let id = "SearchResultCell"
+    let common = Common()
+    
+    let containerView: UIView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1.0
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        return view
+    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
         label.text = "세이노의 가르침"
         return label
@@ -22,6 +32,7 @@ class SearchResultCell: UICollectionViewCell{
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .lightGray
         label.text = "세이노"
+        label.textAlignment = .left
         return label
     }()
     
@@ -30,33 +41,35 @@ class SearchResultCell: UICollectionViewCell{
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .black
         label.text = "14,000원"
+        label.textAlignment = .center
         return label
-    }()
-    
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.layer.borderColor = UIColor.black.cgColor
-        stackView.layer.borderWidth = 1.0
-        stackView.distribution = .fillProportionally
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 5.0)
-        return stackView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.addSubview(containerView)
         [titleLabel, authorLabel, priceLabel].forEach {
-            stackView.addArrangedSubview($0)
+            containerView.addSubview($0)
         }
-        [stackView].forEach {
-            contentView.addSubview($0)
-        }
-        stackView.snp.makeConstraints {
+        containerView.snp.makeConstraints {
             $0.edges.equalTo(contentView)
         }
-        
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading).offset(10)
+            $0.height.equalTo(containerView.snp.height)
+            $0.width.equalTo(containerView.snp.width).multipliedBy(0.5)
+        }
+        authorLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(3)
+            $0.height.equalTo(containerView.snp.height)
+            $0.trailing.equalTo(priceLabel.snp.leading).offset(-3)
+            $0.width.equalTo(70)
+        }
+        priceLabel.snp.makeConstraints {
+            $0.trailing.equalTo(containerView.snp.trailing)
+            $0.height.equalTo(containerView.snp.height)
+            
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -65,6 +78,6 @@ class SearchResultCell: UICollectionViewCell{
     func configure(bookInfo: BookModel){
         titleLabel.text = bookInfo.title
         authorLabel.text = bookInfo.authors.joined(separator: ", ")
-        priceLabel.text = String(bookInfo.price)
+        priceLabel.text = "\(common.formatPrice(n: bookInfo.price)) 원"
     }
 }

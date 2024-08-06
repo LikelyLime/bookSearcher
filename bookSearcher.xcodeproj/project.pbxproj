@@ -17,6 +17,9 @@
 		4F13D8892C5CBF10005D7272 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F13D8882C5CBF10005D7272 /* DetailViewController.swift */; };
 		4F13D88C2C5CE568005D7272 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4F13D88B2C5CE568005D7272 /* RxCocoa */; };
 		4F13D88E2C5CE568005D7272 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4F13D88D2C5CE568005D7272 /* SnapKit */; };
+		4F5920452C61D22B008101B3 /* BookSearcherCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F5920432C61D22B008101B3 /* BookSearcherCoreData.xcdatamodeld */; };
+		4F5920472C61D886008101B3 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5920462C61D886008101B3 /* Common.swift */; };
+		4F5920552C61EEC4008101B3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5920542C61EEC4008101B3 /* CoreDataManager.swift */; };
 		4F7476D92C60646F00EA0BF4 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476D82C60646F00EA0BF4 /* SectionHeaderView.swift */; };
 		4F7476DB2C606CD500EA0BF4 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476DA2C606CD500EA0BF4 /* BookModel.swift */; };
 		4F7476DD2C60721B00EA0BF4 /* RecentBookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7476DC2C60721B00EA0BF4 /* RecentBookCell.swift */; };
@@ -29,7 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F13D8612C5CA43A005D7272 /* bookSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F13D8612C5CA43A005D7272 /* bookSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = bookSearcher.app; path = "/Users/baegsihun/Desktop/workSpace/bookSercher/build/Debug-iphoneos/bookSearcher.app"; sourceTree = "<absolute>"; };
 		4F13D8642C5CA43A005D7272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F13D8682C5CA43A005D7272 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4F13D86D2C5CA43B005D7272 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -39,6 +42,9 @@
 		4F13D8842C5CAE52005D7272 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4F13D8862C5CB1AF005D7272 /* ShoppingBasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBasketViewController.swift; sourceTree = "<group>"; };
 		4F13D8882C5CBF10005D7272 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4F5920442C61D22B008101B3 /* BookSearcherCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookSearcherCoreData.xcdatamodel; sourceTree = "<group>"; };
+		4F5920462C61D886008101B3 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		4F5920542C61EEC4008101B3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4F7476D82C60646F00EA0BF4 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		4F7476DA2C606CD500EA0BF4 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		4F7476DC2C60721B00EA0BF4 /* RecentBookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentBookCell.swift; sourceTree = "<group>"; };
@@ -67,17 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				4F13D8632C5CA43A005D7272 /* bookSercher */,
-				4F13D8622C5CA43A005D7272 /* Products */,
 				4F13D88A2C5CE568005D7272 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		4F13D8622C5CA43A005D7272 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4F13D8612C5CA43A005D7272 /* bookSearcher.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		4F13D8632C5CA43A005D7272 /* bookSercher */ = {
@@ -90,6 +87,7 @@
 				4F13D8642C5CA43A005D7272 /* AppDelegate.swift */,
 				4F13D86D2C5CA43B005D7272 /* Assets.xcassets */,
 				4F13D86F2C5CA43B005D7272 /* LaunchScreen.storyboard */,
+				4F5920432C61D22B008101B3 /* BookSearcherCoreData.xcdatamodeld */,
 				4F13D8722C5CA43B005D7272 /* Info.plist */,
 			);
 			path = bookSercher;
@@ -126,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				4F7476E92C61AB3000EA0BF4 /* NetworkManager.swift */,
+				4F5920462C61D886008101B3 /* Common.swift */,
+				4F5920542C61EEC4008101B3 /* CoreDataManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 				4F13D87E2C5CABBB005D7272 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				4F13D8812C5CABCC005D7272 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
-			productRefGroup = 4F13D8622C5CA43A005D7272 /* Products */;
+			productRefGroup = 4F13D8582C5CA43A005D7272;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -246,11 +246,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F5920472C61D886008101B3 /* Common.swift in Sources */,
 				4F13D8692C5CA43A005D7272 /* SearchViewController.swift in Sources */,
 				4F7476DD2C60721B00EA0BF4 /* RecentBookCell.swift in Sources */,
 				4F13D8852C5CAE52005D7272 /* SearchView.swift in Sources */,
 				4F7476EC2C61AEB500EA0BF4 /* SearcherViewModel.swift in Sources */,
 				4F13D8872C5CB1AF005D7272 /* ShoppingBasketViewController.swift in Sources */,
+				4F5920552C61EEC4008101B3 /* CoreDataManager.swift in Sources */,
 				4F7476DF2C608FA000EA0BF4 /* SearchResultCell.swift in Sources */,
 				4F13D8892C5CBF10005D7272 /* DetailViewController.swift in Sources */,
 				4F7476E52C60C40500EA0BF4 /* ShoppingBasketTabelCell.swift in Sources */,
@@ -258,6 +260,7 @@
 				4F7476D92C60646F00EA0BF4 /* SectionHeaderView.swift in Sources */,
 				4F13D8652C5CA43A005D7272 /* AppDelegate.swift in Sources */,
 				4F7476EA2C61AB3000EA0BF4 /* NetworkManager.swift in Sources */,
+				4F5920452C61D22B008101B3 /* BookSearcherCoreData.xcdatamodeld in Sources */,
 				4F7476DB2C606CD500EA0BF4 /* BookModel.swift in Sources */,
 				4F7476E22C60BEB700EA0BF4 /* ShoppingBasketView.swift in Sources */,
 				4F13D87D2C5CAAB6005D7272 /* RootViewController.swift in Sources */,
@@ -507,6 +510,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		4F5920432C61D22B008101B3 /* BookSearcherCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4F5920442C61D22B008101B3 /* BookSearcherCoreData.xcdatamodel */,
+			);
+			currentVersion = 4F5920442C61D22B008101B3 /* BookSearcherCoreData.xcdatamodel */;
+			path = BookSearcherCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4F13D8592C5CA43A005D7272 /* Project object */;
 }

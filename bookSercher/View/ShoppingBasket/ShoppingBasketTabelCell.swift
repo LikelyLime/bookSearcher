@@ -7,8 +7,18 @@
 
 import Foundation
 import UIKit
+import SnapKit
 class ShoppingBasketTabelCell: UITableViewCell{
     static let id = "ShoppingBasketTabelCell"
+    
+    let containerView: UIView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1.0
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        return view
+    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -34,29 +44,35 @@ class ShoppingBasketTabelCell: UITableViewCell{
         return label
     }()
     
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 40
-        stackView.layer.borderColor = UIColor.black.cgColor
-        stackView.layer.borderWidth = 1.0
-        stackView.distribution = .fillProportionally
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 5.0)
-        
-        return stackView
-    }()
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(containerView)
         [titleLabel, authorLabel, priceLabel].forEach {
-            stackView.addArrangedSubview($0)
+            containerView.addSubview($0)
         }
-        [stackView].forEach {
-            contentView.addSubview($0)
+        containerView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        stackView.snp.makeConstraints {
-            $0.edges.equalTo(contentView)
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading).offset(10)
+            $0.height.equalTo(containerView.snp.height)
+            $0.width.equalTo(containerView.snp.width).multipliedBy(0.5)
+            
+        }
+        authorLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(3)
+            $0.height.equalTo(containerView.snp.height)
+            $0.trailing.equalTo(priceLabel.snp.leading).offset(-3)
+            $0.width.equalTo(70)
+        }
+        priceLabel.snp.makeConstraints {
+            $0.trailing.equalTo(containerView.snp.trailing)
+            $0.height.equalTo(containerView.snp.height)
+            
         }
     }
     
@@ -65,4 +81,9 @@ class ShoppingBasketTabelCell: UITableViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureUI(bookInfoEntity: BookInfoEntity){
+        titleLabel.text = bookInfoEntity.title
+        authorLabel.text = bookInfoEntity.authors
+        priceLabel.text = bookInfoEntity.price
+    }
 }

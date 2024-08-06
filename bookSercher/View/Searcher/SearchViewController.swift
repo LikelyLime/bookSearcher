@@ -32,6 +32,7 @@ class SearchViewController: UIViewController {
         guard let word = searchView.textField.text else {
             return
         }
+        searchView.dismissKeyboard()
         searcherViewModel.retrieveBookInfo(word: word)
     }
     
@@ -104,6 +105,8 @@ extension SearchViewController: UICollectionViewDataSource{
         headerView.configure(with: sectionType.title)
         return headerView
     }
+    
+    
 }
 
 extension SearchViewController: UICollectionViewDelegate{
@@ -114,7 +117,7 @@ extension SearchViewController: UICollectionViewDelegate{
                 break
             case .searchResults:
                 let detailViewController = DetailViewController()
-                
+                detailViewController.setUI(bookInfo: bookInfos[indexPath.row])
                 present(detailViewController, animated: true)
                 break
             default:

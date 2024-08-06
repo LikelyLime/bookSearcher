@@ -32,7 +32,7 @@ class SectionHeaderView: UICollectionReusableView{
     private func setupUI(){
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview().offset(10)
+            $0.edges.equalToSuperview()
         }
     }
 }

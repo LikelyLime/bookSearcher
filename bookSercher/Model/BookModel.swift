@@ -6,7 +6,10 @@
 //
 
 import Foundation
-
+struct BookSearchResponse: Codable {
+    let meta: Meta
+    let documents: [BookModel]
+}
 struct BookModel: Codable {
     let authors: [String]
     let contents: String
@@ -15,10 +18,7 @@ struct BookModel: Codable {
     let thumbnail: String
 }
 
-struct BookSearchResponse: Codable {
-    let meta: Meta
-    let documents: [BookModel]
-}
+
 
 struct Meta: Codable {
     let isEnd: Bool

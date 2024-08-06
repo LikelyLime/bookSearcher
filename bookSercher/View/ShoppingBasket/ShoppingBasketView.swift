@@ -39,7 +39,8 @@ class ShoppingBasketView: UIView{
         return stackView
     }()
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .plain)
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

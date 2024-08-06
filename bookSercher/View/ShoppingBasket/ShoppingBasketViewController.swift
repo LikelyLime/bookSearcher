@@ -10,7 +10,10 @@ import UIKit
 class ShoppingBasketViewController: UIViewController{
     
     let shoppingBasketView = ShoppingBasketView()
-    
+    let coreData = CoreDataManager()
+    var bookInfoEntitys = [BookInfoEntity]()
+    var sections: [String: [BookInfoEntity]] = [:]
+    var sectionTitles: [String] = []
     override func loadView() {
         view = shoppingBasketView
     }
@@ -18,23 +21,87 @@ class ShoppingBasketViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        setAction()
+        loadBooks()
     }
+    
+    func setAction(){
+        shoppingBasketView.removeAllButton.addTarget(self, action: #selector(removeAllData), for: .touchDown)
+    }
+    @objc func removeAllData(){
+        coreData.deleteAllBooks()
+        sections.removeAll()
+        sectionTitles.removeAll()
+        shoppingBasketView.tableView.reloadData()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        setUI()
+    }
+    
     func setTableView(){
         shoppingBasketView.tableView.delegate = self
         shoppingBasketView.tableView.dataSource = self
         shoppingBasketView.tableView.register(ShoppingBasketTabelCell.self, forCellReuseIdentifier: ShoppingBasketTabelCell.id)
+        
+    }
+    func setUI(){
+        loadBooks()
+        shoppingBasketView.tableView.reloadData()
+    }
+    private func loadBooks() {
+        bookInfoEntitys = coreData.fetchBooks()
+        sections.removeAll()
+        sectionTitles.removeAll()
+        for book in bookInfoEntitys {
+            let title = book.title ?? ""
+            if sections[title] != nil {
+                sections[title]?.append(book)
+            } else {
+                sections[title] = [book]
+                sectionTitles.append(title)
+            }
+        }
     }
 }
 
 extension ShoppingBasketViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        let title = sectionTitles[section]
+        return sections[title]?.count ?? 0
     }
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles.count
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingBasketTabelCell.id, for: indexPath) as? ShoppingBasketTabelCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingBasketTabelCell.id, for: indexPath) as? ShoppingBasketTabelCell else {
+            return UITableViewCell()
+        }
+        
+        let title = sectionTitles[indexPath.section]
+        if let book = sections[title]?[indexPath.row] {
+            cell.configureUI(bookInfoEntity: book)
+        }
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
+    }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let title = sectionTitles[indexPath.section]
+        coreData.deleteData(title: title)
+        loadBooks()
+        tableView.reloadData()
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        20
+    }
 }

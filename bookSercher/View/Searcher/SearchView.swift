@@ -37,9 +37,12 @@ class SearchView: UIView{
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.id)
         return collectionView
     }()
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
+        setupTapGesture()
     }
     
     func createLayout() -> UICollectionViewLayout{
@@ -137,6 +140,7 @@ class SearchView: UIView{
     
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false 
         addGestureRecognizer(tapGesture)
     }
 
