@@ -11,6 +11,7 @@ class SearchViewController: UIViewController {
     let searchView = SearchView()
     let searcherViewModel = SearcherViewModel()
     var bookInfos = [BookModel]()
+    var recentBookInfos = [BookModel]()
     let disposeBag = DisposeBag()
     override func loadView() {
         view = searchView
@@ -44,6 +45,9 @@ class SearchViewController: UIViewController {
             print(error)
         }).disposed(by: disposeBag)
     }
+    func focusOnTextField() {
+        searchView.textField.becomeFirstResponder()
+    }
 }
 
 
@@ -59,39 +63,58 @@ enum Section: Int, CaseIterable{
     }
 }
 extension SearchViewController: UICollectionViewDataSource{
+    //collectionView section 갯수
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Section.allCases.count
+        return recentBookInfos.isEmpty ? 1 : Section.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch Section(rawValue: section) {
-            case .recentBooks:
-                return 1
-            case .searchResults:
-                return bookInfos.count
-            default:
-                return 0
+        if recentBookInfos.isEmpty{
+            return bookInfos.count
+        }else{
+            switch Section(rawValue: section) {
+                case .recentBooks:
+                    return recentBookInfos.count
+                case .searchResults:
+                    return bookInfos.count
+                default:
+                    return 0
+            }
         }
     }
     ///cell 구성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = Section(rawValue: indexPath.section)
-        switch section {
-        case .recentBooks:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentBookCell.id, for: indexPath) as? RecentBookCell else {
-                return UICollectionViewCell()
-            }
-            cell.backgroundColor = .red
-            return cell
-        case .searchResults:
+        if recentBookInfos.isEmpty{
+            searchView.recentBookIsEmpty = true
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.id, for: indexPath) as? SearchResultCell else {
                 return UICollectionViewCell()
             }
             cell.backgroundColor = .white
-                cell.configure(bookInfo: bookInfos[indexPath.row])
+            cell.configure(bookInfo: bookInfos[indexPath.row])
             return cell
-        default:
-            return UICollectionViewCell()
+        }else{
+            switch section {
+                case .recentBooks:
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentBookCell.id, for: indexPath) as? RecentBookCell else {
+                        return UICollectionViewCell()
+                    }
+                    cell.backgroundColor = .white
+                    if recentBookInfos.count != 0 {
+                        cell.setUI(bookInfo: recentBookInfos[indexPath.row])
+                    }
+                    
+                    return cell
+                case .searchResults:
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.id, for: indexPath) as? SearchResultCell else {
+                        return UICollectionViewCell()
+                    }
+                    cell.backgroundColor = .white
+                    cell.configure(bookInfo: bookInfos[indexPath.row])
+                    return cell
+                default:
+                    return UICollectionViewCell()
+            }
         }
     }
     /// collectionView 헤더 설정
@@ -101,7 +124,11 @@ extension SearchViewController: UICollectionViewDataSource{
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath) as? SectionHeaderView else {
             return UICollectionReusableView()
         }
-        let sectionType = Section.allCases[indexPath.section]
+        var sectionType = Section.allCases[indexPath.section]
+        if recentBookInfos.isEmpty{
+            sectionType = Section.allCases[1]
+            
+        }
         headerView.configure(with: sectionType.title)
         return headerView
     }
@@ -112,16 +139,47 @@ extension SearchViewController: UICollectionViewDataSource{
 extension SearchViewController: UICollectionViewDelegate{
     ///클릭 시 상세보기 화면이동
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch Section(rawValue: indexPath.section){
-            case .recentBooks: 
-                break
-            case .searchResults:
-                let detailViewController = DetailViewController()
-                detailViewController.setUI(bookInfo: bookInfos[indexPath.row])
-                present(detailViewController, animated: true)
-                break
-            default:
-                return
+        let detailViewController = DetailViewController()
+        if recentBookInfos.isEmpty {
+            
+            setRecentBook(bookInfo: bookInfos[indexPath.row])
+            detailViewController.setUI(bookInfo: bookInfos[indexPath.row])
+            present(detailViewController, animated: true)
+            collectionView.reloadData()
+        }else{
+            switch Section(rawValue: indexPath.section){
+                case .recentBooks:
+                    detailViewController.setUI(bookInfo: recentBookInfos[indexPath.row])
+                    setRecentBook(bookInfo: recentBookInfos[indexPath.row])
+                    present(detailViewController, animated: true)
+                    collectionView.reloadData()
+                    break
+                case .searchResults:
+                    setRecentBook(bookInfo: bookInfos[indexPath.row])
+                    detailViewController.setUI(bookInfo: bookInfos[indexPath.row])
+                    present(detailViewController, animated: true)
+                    collectionView.reloadData()
+                    break
+                default:
+                    return
+            }
         }
     }
+    ///recentBookInfos 순서 맞추기
+    func setRecentBook(bookInfo: BookModel) {
+        if recentBookInfos.count >= 10{
+            recentBookInfos.removeLast()
+            recentBookInfos.insert(bookInfo, at: 0)
+        }else{
+            if let index = recentBookInfos.firstIndex(of: bookInfo) {
+                recentBookInfos.remove(at: index)
+            }
+            recentBookInfos.insert(bookInfo, at: 0)
+            
+        }
+        searchView.recentBookIsEmpty = recentBookInfos.isEmpty
+        searchView.collectionView.reloadData()
+    }
+    
+    
 }

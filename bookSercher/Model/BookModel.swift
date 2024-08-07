@@ -10,12 +10,16 @@ struct BookSearchResponse: Codable {
     let meta: Meta
     let documents: [BookModel]
 }
-struct BookModel: Codable {
+struct BookModel: Codable, Equatable {
     let authors: [String]
     let contents: String
     let price: Int
     let title: String
     let thumbnail: String
+    /// 연산자를 오버로딩
+    static func == (lhs: BookModel, rhs: BookModel) -> Bool {
+        return lhs.title == rhs.title && lhs.authors == rhs.authors
+    }
 }
 
 

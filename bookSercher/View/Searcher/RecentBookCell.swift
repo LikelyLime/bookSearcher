@@ -11,7 +11,6 @@ class RecentBookCell: UICollectionViewCell{
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .orange
         imageView.layer.cornerRadius = 50
         return imageView
     }()
@@ -24,5 +23,19 @@ class RecentBookCell: UICollectionViewCell{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUI(bookInfo: BookModel){
+        var urlString = bookInfo.thumbnail
+        guard let url = URL(string: urlString) else { return }
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url){
+                if let image = UIImage(data: data){
+                    DispatchQueue.main.async {
+                        self!.imageView.image = image
+                    }
+                }
+            }
+        }
     }
 }

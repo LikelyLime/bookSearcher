@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 class SearchView: UIView{
+    var recentBookIsEmpty = true
     let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 44))
     let button: UIButton = {
         let button = UIButton()
@@ -47,13 +48,18 @@ class SearchView: UIView{
     
     func createLayout() -> UICollectionViewLayout{
         return UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            switch sectionIndex {
-            case 0:
-                return self.createFirstSection()
-            case 1:
+            if self.recentBookIsEmpty {
+                print(self.recentBookIsEmpty)
                 return self.createSecondSection()
-            default:
-                return nil
+            }else{
+                switch sectionIndex {
+                    case 0:
+                        return self.createFirstSection()
+                    case 1:
+                        return self.createSecondSection()
+                    default:
+                        return nil
+                }
             }
         }
         

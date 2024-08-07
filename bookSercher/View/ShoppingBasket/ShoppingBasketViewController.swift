@@ -27,6 +27,15 @@ class ShoppingBasketViewController: UIViewController{
     
     func setAction(){
         shoppingBasketView.removeAllButton.addTarget(self, action: #selector(removeAllData), for: .touchDown)
+        shoppingBasketView.plusButton.addTarget(self, action: #selector(changeView), for: .touchDown)
+    }
+    ///tabbar 변경과 textField의 포커스
+    @objc func changeView(){
+        if let tabBarController = self.tabBarController,
+           let searchViewController = tabBarController.viewControllers?[0] as? SearchViewController {
+            tabBarController.selectedIndex = 0
+            searchViewController.focusOnTextField()
+        }
     }
     @objc func removeAllData(){
         coreData.deleteAllBooks()
