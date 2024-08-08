@@ -35,19 +35,22 @@ class SearchViewController: UIViewController {
         
     }
     @objc func retrieveBookInfo(){
-        guard let word = searchView.textField.text else {
+        guard let text = searchView.textField.text else { return }
+        if text.isEmpty{
+            showAlert(message: "검색어를 입력해 주세요", buttonTitle: "확인", buttonClickTitle: "OK")
             return
         }
         searchView.dismissKeyboard()
-        currentPage = 1 // 검색어 입력 시 현재 페이지를 1로 설정
-        bookInfos.removeAll() // 검색어 입력 시 기존 데이터를 초기화
+        currentPage = 1
+        bookInfos.removeAll()
         loadData(page: currentPage)
     }
+    /// 책검색 API호출
     func loadData(page: Int) {
-        guard !isLoading else { return }
         isLoading = true
         searcherViewModel.retrieveBookInfo(word: searchView.textField.text ?? "", page: page)
     }
+    ///데이터 바인딩 및 무한 스크롤
     func bind(){
         searcherViewModel.bookInfoSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
             guard let self = self else { return }
@@ -60,6 +63,7 @@ class SearchViewController: UIViewController {
             self?.isLoading = false
         }).disposed(by: disposeBag)
     }
+    ///textField 포커스
     func focusOnTextField() {
         searchView.textField.becomeFirstResponder()
     }
