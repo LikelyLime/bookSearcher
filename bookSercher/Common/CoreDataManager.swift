@@ -28,7 +28,7 @@ class CoreDataManager{
         }
     }
     /// coreData 전체 조회
-    func fetchBooks() -> [BookInfoEntity] {
+    func retrieveBookInfos() -> [BookInfoEntity] {
         let fetchRequest: NSFetchRequest<BookInfoEntity> = BookInfoEntity.fetchRequest()
         
         do {
@@ -39,10 +39,10 @@ class CoreDataManager{
             return []
         }
     }
-    
-    func deleteData(title: String){
+    /// coreData 삭제
+    func deleteData(title: String, author: String){
         let fetchRequest = BookInfoEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+        fetchRequest.predicate = NSPredicate(format: "title == %@ AND authors CONTAINS[cd] %@", title, author)
         do{
             let result = try self.context.fetch(fetchRequest)
             for data in result as [NSManagedObject]{
@@ -54,7 +54,7 @@ class CoreDataManager{
             print("삭제 실패")
         }
     }
-    
+    ///coreData 전체 삭제
     func deleteAllBooks() {
         let fetchRequest: NSFetchRequest<BookInfoEntity> = BookInfoEntity.fetchRequest()
         
@@ -67,6 +67,19 @@ class CoreDataManager{
             print("삭제 성공")
         } catch {
             print("삭제 실패")
+        }
+    }
+    ///coreData 데이터 조회
+    func retrieveBookInfo(title: String, author: String) -> [BookInfoEntity] {
+        let fetchRequest: NSFetchRequest<BookInfoEntity> = BookInfoEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "title == %@ AND authors CONTAINS[cd] %@", title, author)
+        
+        do {
+            let books = try context.fetch(fetchRequest)
+            return books
+        } catch {
+            print("에러: \(error.localizedDescription)")
+            return []
         }
     }
 }

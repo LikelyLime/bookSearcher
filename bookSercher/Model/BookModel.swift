@@ -16,13 +16,7 @@ struct BookModel: Codable, Equatable {
     let price: Int
     let title: String
     let thumbnail: String
-    /// 연산자를 오버로딩
-    static func == (lhs: BookModel, rhs: BookModel) -> Bool {
-        return lhs.title == rhs.title && lhs.authors == rhs.authors
-    }
 }
-
-
 
 struct Meta: Codable {
     let isEnd: Bool

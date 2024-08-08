@@ -20,7 +20,7 @@ class NetworkManager{
     static let shared = NetworkManager()
     private let apiKey = "f058fdd1f12c6afc2089457548925562"
     private init(){}
-    
+    /// 카카오 API 호출
     func fetch<T: Decodable>(url: URL) -> Single<T>{
         return Single.create{ observer in
             let session = URLSession(configuration: .default)

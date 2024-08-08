@@ -49,7 +49,6 @@ class SearchView: UIView{
     func createLayout() -> UICollectionViewLayout{
         return UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             if self.recentBookIsEmpty {
-                print(self.recentBookIsEmpty)
                 return self.createSecondSection()
             }else{
                 switch sectionIndex {

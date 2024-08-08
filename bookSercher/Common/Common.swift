@@ -16,3 +16,19 @@ class Common{
     }
     
 }
+extension UIViewController {
+    /// Alert 호출 함수
+    func showAlert(message: String, buttonTitle: String, buttonClickTitle: String) {
+        let alert = UIAlertController(title: buttonTitle, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonClickTitle, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    /// 동기처리 Alert함수
+    func showSnycAlert(message: String, buttonTitle: String, buttonClickTitle: String, method: @escaping () -> Void) {
+        let alert = UIAlertController(title: buttonTitle, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonClickTitle, style: .default, handler: { _ in
+            method()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+}

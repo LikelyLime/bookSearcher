@@ -58,16 +58,19 @@ class ShoppingBasketViewController: UIViewController{
         shoppingBasketView.tableView.reloadData()
     }
     private func loadBooks() {
-        bookInfoEntitys = coreData.fetchBooks()
+        bookInfoEntitys = coreData.retrieveBookInfos()
         sections.removeAll()
         sectionTitles.removeAll()
         for book in bookInfoEntitys {
             let title = book.title ?? ""
-            if sections[title] != nil {
-                sections[title]?.append(book)
+            let author = book.authors ?? ""
+            let sectionKey = "\(title) - \(author)" // 제목과 저자를 결합하여 고유한 섹션 키 생성
+            
+            if sections[sectionKey] != nil {
+                sections[sectionKey]?.append(book)
             } else {
-                sections[title] = [book]
-                sectionTitles.append(title)
+                sections[sectionKey] = [book]
+                sectionTitles.append(sectionKey)
             }
         }
     }
@@ -96,20 +99,38 @@ extension ShoppingBasketViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
+    /// 스와이프시 delete버튼을 만드는 메서드
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         .delete
     }
+    ///스와이프로 데이터 삭제하는 메서드
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let title = sectionTitles[indexPath.section]
-        coreData.deleteData(title: title)
-        loadBooks()
-        tableView.reloadData()
+        let sectionKey = sectionTitles[indexPath.section]
+        let components = sectionKey.split(separator: "-").map { $0.trimmingCharacters(in: .whitespaces) }
+        guard components.count == 2, let bookTitle = components.first, let bookAuthor = components.last else {
+            return
+        }
+
+        // Core Data에서 해당 제목과 저자로 책 삭제
+        coreData.deleteData(title: String(bookTitle), author: String(bookAuthor))
+        sections[sectionKey]?.remove(at: indexPath.row)
+
+        // 데이터가 비어있으면 섹션 제거
+        if sections[sectionKey]?.isEmpty == true {
+            sections.removeValue(forKey: sectionKey)
+            sectionTitles.remove(at: indexPath.section)
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+        } else {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
+    ///footer 설정 메서드
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }
+    ///footer 설정하여 높이만큼 section의 거리를 설정하는 메서드
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         20
     }

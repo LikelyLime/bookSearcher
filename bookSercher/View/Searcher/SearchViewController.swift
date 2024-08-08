@@ -13,6 +13,11 @@ class SearchViewController: UIViewController {
     var bookInfos = [BookModel]()
     var recentBookInfos = [BookModel]()
     let disposeBag = DisposeBag()
+    ///페이징 처리 프로퍼티
+    var currentPage = 1
+    var totalPage = 1
+    var isLoading = false
+    
     override func loadView() {
         view = searchView
     }
@@ -34,15 +39,25 @@ class SearchViewController: UIViewController {
             return
         }
         searchView.dismissKeyboard()
-        searcherViewModel.retrieveBookInfo(word: word)
+        currentPage = 1 // 검색어 입력 시 현재 페이지를 1로 설정
+        bookInfos.removeAll() // 검색어 입력 시 기존 데이터를 초기화
+        loadData(page: currentPage)
     }
-    
+    func loadData(page: Int) {
+        guard !isLoading else { return }
+        isLoading = true
+        searcherViewModel.retrieveBookInfo(word: searchView.textField.text ?? "", page: page)
+    }
     func bind(){
-        searcherViewModel.bookInfoSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] books in
-            self?.bookInfos = books
-            self?.searchView.collectionView.reloadData()
+        searcherViewModel.bookInfoSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] response in
+            guard let self = self else { return }
+            self.isLoading = false
+            self.bookInfos.append(contentsOf: response.documents)
+            self.totalPage = response.meta.totalCount
+            self.searchView.collectionView.reloadData()
         }, onError: { [weak self] error in
             print(error)
+            self?.isLoading = false
         }).disposed(by: disposeBag)
     }
     func focusOnTextField() {
@@ -137,6 +152,17 @@ extension SearchViewController: UICollectionViewDataSource{
 }
 
 extension SearchViewController: UICollectionViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        // 무한 스크롤을 위한 페이징 처리
+        if offsetY > contentHeight - height * 2, !isLoading, currentPage < totalPage {
+            currentPage += 1
+            loadData(page: currentPage)
+        }
+    }
     ///클릭 시 상세보기 화면이동
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
